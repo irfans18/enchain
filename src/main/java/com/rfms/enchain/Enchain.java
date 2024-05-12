@@ -29,7 +29,7 @@ public class Enchain {
                  BadPaddingException | JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        String hashData = cryptoService.getDiggest(b.getPrevHash() + encrypted);
+        String hashData = cryptoService.getDigest(b.getPrevHash() + encrypted);
 
         try {
             cryptoService.generateKeyPair();

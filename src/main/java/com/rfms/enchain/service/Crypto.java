@@ -27,13 +27,20 @@ public class Crypto {
         return this;
     }
 
-    public String getDiggest(String payload) {
+    public String getDigest(String payload) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] encodedHash = md.digest(payload.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = Base64.getEncoder().encode(encodedHash);
-
-            return new String(bytes);
+            byte[] hash = Base64.getEncoder().encode(encodedHash);
+            StringBuilder hexString = new StringBuilder(2 * hash.length);
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
