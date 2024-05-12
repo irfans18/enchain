@@ -30,12 +30,11 @@ public class Crypto {
     public String getDigest(String payload) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] encodedHash = md.digest(payload.getBytes(StandardCharsets.UTF_8));
-            byte[] hash = Base64.getEncoder().encode(encodedHash);
+            byte[] hash = md.digest(payload.getBytes(StandardCharsets.UTF_8));
             StringBuilder hexString = new StringBuilder(2 * hash.length);
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) {
                     hexString.append('0');
                 }
                 hexString.append(hex);
