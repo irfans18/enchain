@@ -119,7 +119,7 @@ public class Crypto {
     }
 
     /**
-     * Encrypts the given payload using the private key of this instance, and splits the
+     * Encrypts the given payload using the public key of this instance, and splits the
      * resulting ciphertext into chunks of a specified size, separated by newline
      * characters.
      * <p>
@@ -144,7 +144,7 @@ public class Crypto {
      */
     public String encrypt(String payload) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher encryptCipher = Cipher.getInstance("RSA");
-        encryptCipher.init(Cipher.ENCRYPT_MODE, privateKey);
+        encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
         byte[] secretMessageBytes = payload.getBytes(StandardCharsets.UTF_8);
         byte[] encryptedMessageBytes = encryptCipher.doFinal(secretMessageBytes);
@@ -189,7 +189,7 @@ public class Crypto {
     }
 
     /**
-     * Decrypts the given ciphertext using the given key, and returns the resulting plaintext.
+     * Decrypts the given ciphertext using the public key, and returns the resulting plaintext.
      * <p>
      * This method decrypts the given ciphertext using the given key, using the RSA algorithm.
      * The resulting plaintext is returned as a string.
@@ -208,7 +208,7 @@ public class Crypto {
      */
     public String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher decryptCipher = Cipher.getInstance("RSA");
-        decryptCipher.init(Cipher.DECRYPT_MODE, publicKey);
+        decryptCipher.init(Cipher.DECRYPT_MODE, privateKey);
 
         byte[] bytes = Base64.getDecoder().decode(cipherText);
         byte[] decryptedFileBytes = decryptCipher.doFinal(bytes);
