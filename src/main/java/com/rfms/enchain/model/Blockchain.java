@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class Blockchain implements Stringify<Blockchain> {
     private String prevHash;
     private String cipherText;
-    private String hashData;
+    private String hash;
     private Integer index;
-    private String votersId;
+    private String voter;
 
     @Override
     public String toJSON() {

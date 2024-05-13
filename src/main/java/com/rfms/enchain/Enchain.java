@@ -38,9 +38,9 @@ public class Enchain {
         }
 
         return Blockchain.builder()
-                .votersId(b.getCipherData().getVoterId())
+                .voter(b.getCipherData().getVoterId())
                 .prevHash(b.getPrevHash())
-                .hashData(hashData)
+                .hash(hashData)
                 .cipherText(encrypted)
                 .index(b.getCipherData().getIndex())
                 .build();
