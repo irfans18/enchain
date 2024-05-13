@@ -302,7 +302,7 @@ public class Crypto {
      * @throws InvalidKeySpecException if the given PEM key is not a valid private key
      */
     public RSAPrivateKey privKeyFromPem(String pkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String privateKeyPEM = pkey.replace("-----BEGIN RSA PRIVATE KEY-----", "").replaceAll(System.lineSeparator(), "").replace("-----END RSA PRIVATE KEY-----", "");
+        String privateKeyPEM = pkey.replace("-----BEGIN RSA PRIVATE KEY-----", "").replaceAll("\n", "").replace("-----END RSA PRIVATE KEY-----", "");
         
         byte[] encoded = Base64.getDecoder().decode(privateKeyPEM);
         

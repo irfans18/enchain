@@ -7,6 +7,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 
@@ -22,7 +23,9 @@ public class Example {
             String encrypted = crypto.encrypt("free kick", crypto.pubKeyFromPem(pem));
             System.out.println(encrypted);
 
-            String decrypted = crypto.decrypt(encrypted, crypto.getPrivateKey());
+            RSAPrivateKey privateKey = crypto.getPrivateKey();
+            pem = crypto.convertToPem(privateKey);
+            String decrypted = crypto.decrypt(encrypted, crypto.privKeyFromPem(pem));
             System.out.println(decrypted);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
                  BadPaddingException | InvalidKeySpecException e) {
